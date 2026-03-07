@@ -1,6 +1,0 @@
-Description = "Writes a commit message !"
-Prompt = """
-!{git diff --staged}
-write a commit message point by point. should use simple english and only include major changes
-
-"""
