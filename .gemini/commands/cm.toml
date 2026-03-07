@@ -1,0 +1,9 @@
+description = "Writes a commit message using git diff --staged"
+prompt = """
+!{git diff --staged}
+write a commit message.
+put that commit message inside cm.txt file. if that file doesnt exist,
+create that.
+clear every thing inside that cm.txt file before putting commit message.
+if thare any un staged changes, write a warning message inside cm.txt file.
+"""
