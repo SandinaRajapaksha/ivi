@@ -1,9 +1,38 @@
-description = "Writes a commit message using git diff --staged"
+description = "Write a commit message using Gemini CLI"
 prompt = """
-!{git diff --staged}
-write a commit message.
-put that commit message inside cm.txt file. if that file doesnt exist,
-create that.
-clear every thing inside that cm.txt file before putting commit message.
-if thare any un staged changes, write a warning message inside cm.txt file.
+<role> you should act as a software engineer. </role>
+<task>
+!{git diff --staged} write a commit messages by comparing staged changes to
+most recent commit.
+</task>
+<system_requirements>
+<constraint>
+If there are any unstaged changes, immedietly stop writing or analizing code
+and display error message inside cm_log.txt file
+</constraint>
+<constraint>
+add a prefix for the title of the commit message. like- chore: , feat: ,
+style: , fix: , docs: , fix: , refactor: , test: and also mention what part
+changed mainly inside paranthesis in the prefix example - feat(UI): Add new
+dark theme for the home page. If there is no specific component or when its
+not nessasary, you can just right prefix without paranthesis. for example -
+just feat: Add this feature.
+</constraint>
+<constraint>
+Limit the subject line to 50 characters. Capitalize only the first letter in
+subject line. Don't put a period at end of the subject line. Put a blank
+line between subject line and body. Wrap the body at 72 characters. Use the
+imperative mood. Describe what was done and why, but not how.
+</constraint>
+<constraint>
+In the body, list changes onle by one and use "-" character as list bullet points.
+</constraint>
+<constraint>
+Ignore any changes to files that are listed in .gitignore.
+</constraint>
+</system_requirements>
+<output>
+write output inside cm_log.txt file. Always clear all the content inside
+cm_log.txt file before writing output.
+</output>
 """
