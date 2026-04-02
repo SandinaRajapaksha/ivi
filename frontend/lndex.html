@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Submission</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 20px; }
+        form { display: flex; flex-direction: column; gap: 10px; width: 300px; }
+        input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; cursor: pointer; border: none; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <form id="userForm">
+        <h2>User Info</h2>
+        <input type="text" id="userId" placeholder="User ID" required>
+        <input type="number" id="age" placeholder="Age" required>
+        <input type="text" id="school" placeholder="School" required>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+            <option value="other">Other</option>
+        </select>
+        <button type="submit">Send to Backend</button>
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevents the page from refreshing
+
+            // 1. Collect the data from the form
+            const userData = {
+                userId: document.getElementById('userId').value,
+                age: parseInt(document.getElementById('age').value),
+                school: document.getElementById('school').value,
+                gender: document.getElementById('gender').value
+            };
+
+            // 2. Log it to the console so you can see it
+            console.log("Sending JSON:", JSON.stringify(userData));
+
+            try {
+                // 3. Send the data via POST request
+                const response = await fetch('http://localhost:8080', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    alert('Data sent successfully!');
+                } else {
+                    alert('Server error occurred.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Could not connect to the server.');
+            }
+        });
+    </script>
+</body>
+</html>
