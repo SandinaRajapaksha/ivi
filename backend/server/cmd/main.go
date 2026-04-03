@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -25,7 +24,7 @@ func main() {
 	fmt.Println("Listening to port 8080 ...")
 	err := http.ListenAndServe(":8080", router)
 	if err != nil {
-		errors.New("Cant establish connection")
+		panic("Connection cant establish")
 	}
 
 }
